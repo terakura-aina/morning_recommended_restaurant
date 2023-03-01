@@ -10,8 +10,13 @@ module Types
     # TODO: remove me
     field :test_field, String, null: false,
       description: "An example field added by the generator"
+    field :restaurants, [Types::RestaurantType], null: false
     def test_field
       "Test"
+    end
+
+    def restaurants
+      Restaurant.all
     end
   end
 end

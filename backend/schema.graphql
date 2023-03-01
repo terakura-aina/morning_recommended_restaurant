@@ -6,8 +6,24 @@ type Mutation {
 }
 
 type Query {
+  restaurants: [Restaurant!]!
+
   """
   An example field added by the generator
   """
   testField: String!
+}
+
+type Restaurant {
+  description: String
+  id: String!
+  name: String!
+  open: String
+  tags: [Tag!]!
+  url: String!
+}
+
+type Tag {
+  id: String!
+  name: String!
 }

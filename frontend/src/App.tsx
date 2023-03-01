@@ -1,24 +1,43 @@
-import React, { useEffect, useState } from "react"
+import React, { useLayoutEffect, useState } from "react"
 
-import { execTest } from "lib/api/test"
+import { execRestaurant } from "lib/api/restaurants"
 
 const App: React.FC = () => {
-  const [message, setMessage] = useState<string>("")
+  type Restaurants = {
+    name: String
+  }
+  const [restaurants, setRestaurants] = useState<any>([])
 
-  const handleExecTest = async () => {
-    const res = await execTest()
+  const handleExecRestaurant = async () => {
+    const res = await execRestaurant()
 
+    console.log(res.status)
     if (res.status === 200) {
-      setMessage(res.data.message)
+      console.log(res.data.restaurants)
+      console.log(restaurants)
+      setRestaurants(res.data.restaurants)
+      console.log(restaurants)
     }
   }
 
-  useEffect(() => {
-    handleExecTest()
+  useLayoutEffect(() => {
+    handleExecRestaurant()
   }, [])
 
   return (
-    <h1>{message}</h1>
+    <>
+      <ul>
+        {restaurants.map((restaurant: any) =>
+          <li key={restaurant['id']}>
+            <p>{restaurant['name']}
+              {restaurant['tags'].map((tag: any) =>
+                <p className="tag" key={tag.id}>{tag.name}</p>
+              )}
+            </p>
+          </li>
+        )}
+      </ul>
+    </>
   )
 }
 
