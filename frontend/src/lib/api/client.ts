@@ -7,11 +7,11 @@ import axios from "axios"
 
 // ヘッダーに関してはケバブケースのままで良いので適用を無視するオプションを追加
 const options = {
-  ignoreHeaders: true 
+  ignoreHeaders: true
 }
 
 const client = applyCaseMiddleware(axios.create({
-  baseURL: "http://localhost:8080/api/v1"
+  baseURL: "https://morning-recommended-restaurant-backend.fly.dev/api/v1"
 }), options)
 
 export default client
