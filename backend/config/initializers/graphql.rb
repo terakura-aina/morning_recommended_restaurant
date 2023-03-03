@@ -3,7 +3,7 @@ require "graphql/client/http"
 
 module Graphql
   # Configure GraphQL endpoint using the basic HTTP network adapter.
-  HTTP = GraphQL::Client::HTTP.new("http://localhost:3001/graphql") do
+  HTTP = GraphQL::Client::HTTP.new("http://localhost:8080/graphql") do
     def headers(context)
       # Optionally set any HTTP headers
       { "User-Agent": "My Client" }
