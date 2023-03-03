@@ -11,7 +11,11 @@ const options = {
 }
 
 const client = applyCaseMiddleware(axios.create({
-  baseURL: "https://morning-recommended-restaurant-backend.fly.dev/api/v1"
+  baseURL: "https://morning-recommended-restaurant-backend.fly.dev/api/v1",
+  headers: {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*",
+  },
 }), options)
 
 export default client
