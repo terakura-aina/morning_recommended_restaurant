@@ -29,11 +29,11 @@ const App: React.FC = () => {
       <ul>
         {restaurants.map((restaurant: any) =>
           <li key={restaurant['id']}>
-            <p>{restaurant['name']}
+            <div>{restaurant['name']}
               {restaurant['tags'].map((tag: any) =>
                 <p className="tag" key={tag.id}>{tag.name}</p>
               )}
-            </p>
+            </div>
           </li>
         )}
       </ul>
