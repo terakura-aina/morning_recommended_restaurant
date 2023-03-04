@@ -2,8 +2,9 @@ require "graphql/client"
 require "graphql/client/http"
 
 module Graphql
+  url = Rails.env.development? ? "http://localhost:3001/graphql" : "http://localhost:8080/graphql"
   # Configure GraphQL endpoint using the basic HTTP network adapter.
-  HTTP = GraphQL::Client::HTTP.new("http://localhost:8080/graphql") do
+  HTTP = GraphQL::Client::HTTP.new(url) do
     def headers(context)
       # Optionally set any HTTP headers
       { "User-Agent": "My Client" }
