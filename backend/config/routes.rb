@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :test, only: %i[index]
-      resources :restaurant, only: %i[index]
+      resources :restaurant, only: %i[index create]
+      resources :tag, only: %i[index create]
     end
   end
 end

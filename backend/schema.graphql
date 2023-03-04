@@ -7,6 +7,7 @@ type Mutation {
 
 type Query {
   restaurants: [Restaurant!]!
+  tags: [Tag!]!
 
   """
   An example field added by the generator
