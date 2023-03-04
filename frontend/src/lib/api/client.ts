@@ -11,6 +11,8 @@ const options = {
 }
 
 const client = applyCaseMiddleware(axios.create({
+  // "https://morning-recommended-restaurant-backend.fly.dev/api/v1"
+  // "http://localhost:3001/api/v1"
   baseURL: "https://morning-recommended-restaurant-backend.fly.dev/api/v1"
 }), options)
 
