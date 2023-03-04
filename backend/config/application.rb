@@ -27,7 +27,7 @@ module Backend
     config.api_only = true
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-          origins "http://localhost:8080/", "https://morning-recommended-restaurant.vercel.app/"
+          origins "*"
           resource "*",
           headers: :any,
           methods: [:get, :post, :options, :head]
