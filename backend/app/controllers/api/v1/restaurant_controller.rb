@@ -5,6 +5,10 @@ class Api::V1::RestaurantController < ApplicationController
     render json: {restaurants: result.to_h['data']['restaurants']}
   end
 
+  def create
+    Restaurant.create(name: params[:name], url: params[:url])
+  end
+
   private
 
   IssueInfoQuery = Graphql::Client.parse <<~'GRAPHQL'
