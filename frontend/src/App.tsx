@@ -36,7 +36,8 @@ const App: React.FC = () => {
       <ul>
         {restaurants.map((restaurant: any) =>
           <li key={restaurant['id']}>
-            <div>{restaurant['name']}
+            <div>
+              <a href={restaurant['url']} target="_blank">{restaurant['name']}</a>
               {restaurant['tags'].map((tag: any) =>
                 <p className="tag" key={tag.id}>{tag.name}</p>
               )}
@@ -51,6 +52,8 @@ const App: React.FC = () => {
         <label>レストランのURL：<input value={restaurantUrl} onChange={handleChangeRestaurantUrl} /></label><br />
         <button onClick={() => {
             insertRestaurant(restaurantName, restaurantUrl);
+            setRestaurantName("");
+            setRestaurantUrl("");
             displayRestaurants();
           }}>作成</button>
       </div>
