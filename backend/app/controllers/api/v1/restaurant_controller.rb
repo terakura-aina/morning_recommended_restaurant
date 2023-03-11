@@ -9,6 +9,10 @@ class Api::V1::RestaurantController < ApplicationController
     Restaurant.create(name: params[:name], url: params[:url])
   end
 
+  def destroy
+    Restaurant.find(params[:id]).destroy!
+  end
+
   private
 
   IssueInfoQuery = Graphql::Client.parse <<~'GRAPHQL'
