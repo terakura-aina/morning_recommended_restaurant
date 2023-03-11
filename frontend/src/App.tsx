@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from "react"
 
-import { execRestaurant } from "lib/api/restaurants"
+import { handleExecRestaurant } from "lib/api/restaurants"
 import { insertRestaurant } from "lib/api/insertRestaurant"
 import { insertTag } from "lib/api/insertTag"
 
@@ -9,18 +9,6 @@ const App: React.FC = () => {
   const [restaurantName, setRestaurantName] = useState('')
   const [restaurantUrl, setRestaurantUrl] = useState('')
   const [tagName, setTagName] = useState('')
-
-  const handleExecRestaurant = async () => {
-    const res = await execRestaurant()
-
-    console.log(res.status)
-    if (res.status === 200) {
-      console.log(res.data.restaurants)
-      console.log(restaurants)
-      setRestaurants(res.data.restaurants)
-      console.log(restaurants)
-    }
-  }
 
   const handleChangeRestaurantName = (e: any) => {
     setRestaurantName(e.target.value)
@@ -34,8 +22,13 @@ const App: React.FC = () => {
     setTagName(e.target.value)
   }
 
+  const displayRestaurants = async() => {
+    const restaurants = await handleExecRestaurant()
+    setRestaurants(restaurants)
+  }
+
   useLayoutEffect(() => {
-    handleExecRestaurant()
+    displayRestaurants();
   }, [])
 
   return (
@@ -54,9 +47,12 @@ const App: React.FC = () => {
 
       <div>レストランを追加する</div>
       <div>
-        <input value={restaurantName} onChange={handleChangeRestaurantName} /><br />
-        <input value={restaurantUrl} onChange={handleChangeRestaurantUrl} /><br />
-        <button onClick={() => insertRestaurant(restaurantName, restaurantUrl)}>作成</button>
+        <label>レストラン名：<input value={restaurantName} onChange={handleChangeRestaurantName} /></label><br />
+        <label>レストランのURL：<input value={restaurantUrl} onChange={handleChangeRestaurantUrl} /></label><br />
+        <button onClick={() => {
+            insertRestaurant(restaurantName, restaurantUrl);
+            displayRestaurants();
+          }}>作成</button>
       </div>
 
       <div>タグを追加する</div>
