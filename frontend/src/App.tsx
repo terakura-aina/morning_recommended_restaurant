@@ -54,6 +54,14 @@ const App: React.FC = () => {
     return description || open
   }
 
+  const openInfo = (open: string| undefined) => {
+    if(open) {
+      return open
+    } else {
+      return "不明"
+    }
+  }
+
   useLayoutEffect(() => {
     displayRestaurants();
   }, [])
@@ -67,7 +75,7 @@ const App: React.FC = () => {
               <div>
                 <a href={restaurant['url']} target="_blank" className="restaurantList__name"
                   data-tooltip-id={restaurant['id']} data-tooltip-place="bottom"
-                  data-tooltip-html={hasDescriptionOrOpen(restaurant['description'], restaurant['open']) && `open ${restaurant['open'] ?? ""}<br />${restaurant['description'] ?? ""}`}
+                  data-tooltip-html={hasDescriptionOrOpen(restaurant['description'], restaurant['open']) && `open ${openInfo(restaurant['open'])}<br />${restaurant['description'] ?? ""}`}
                 >
                   {restaurant['name']}
                   <Tooltip id={restaurant['id']} place="right" />
