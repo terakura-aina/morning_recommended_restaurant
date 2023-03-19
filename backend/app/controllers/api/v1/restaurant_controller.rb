@@ -6,7 +6,7 @@ class Api::V1::RestaurantController < ApplicationController
   end
 
   def create
-    Restaurant.create(name: params[:name], url: params[:url])
+    Restaurant.create(name: params[:name], url: params[:url], description: params[:description], open: params[:open])
   end
 
   def destroy
@@ -21,6 +21,8 @@ class Api::V1::RestaurantController < ApplicationController
         id
         name
         url
+        description
+        open
         tags {
           id
           name
