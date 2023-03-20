@@ -61,6 +61,11 @@ const App: React.FC = () => {
     setRestaurantOpen("");
   }
 
+  const resetAddTagForm = () => {
+    displayTags()
+    setTagName("")
+  }
+
   const displayRestaurants = async() => {
     const restaurants = await handleExecRestaurant()
     setRestaurants(restaurants)
@@ -94,6 +99,67 @@ const App: React.FC = () => {
 
   return (
     <>
+      <div className="addForm">
+        <div className="addRestaurant">
+          <div className="addRestaurant__title">レストランを追加する</div>
+          <label>
+            <span className="addRestaurant__name">レストラン名：</span>
+            <input value={restaurantName} onChange={handleChangeRestaurantName} className="addRestaurant__nameInput" />
+          </label><br />
+          <label>
+            <span className="addRestaurant__url">レストランのURL：</span>
+            <input value={restaurantUrl} onChange={handleChangeRestaurantUrl} className="addRestaurant__urlInput" />
+          </label><br />
+          <label>
+            <span className="addRestaurant__description">備考：</span>
+            <input value={restaurantDescription} onChange={handleChangeRestaurantDescription}  className="addRestaurant__descriptionInput"/>
+            </label><br />
+          <label>
+            <span className="addRestaurant__open">Openする時間：</span>
+            <input value={restaurantOpen} onChange={handleChangeRestaurantOpen} className="addRestaurant__openInput" />
+          </label><br />
+          <div className="addRestaurant__tag">
+            <span className="addRestaurant__tagName">タグ：</span>
+            <span className="addRestaurant__tagNameInput">
+              <Select
+                isMulti
+                options={options}
+                onChange={(value: any) => {
+                  return value ? setSelectedValue([...value]) : null;
+                }}
+              />
+            </span>
+          </div>
+          <button className="addRestaurant__addButton" onClick={ async () => {
+            await insertRestaurant(restaurantName, restaurantUrl, restaurantDescription, restaurantOpen, selectedValue);
+            resetAddRestrantForm();
+            displayRestaurants();
+          }}>
+            <IconContext.Provider value={{ color: '#71d355', size: '30px' }}>
+              <MdAddCircle />
+            </IconContext.Provider>
+            <span className="addRestaurant__addButtonText"> 追加する</span>
+          </button>
+        </div>
+
+        <div className="addTag">
+          <div className="addTag__title">タグを追加する</div>
+          <label>
+            <span className="addTag__name">タグの名前：</span>
+            <input value={tagName} onChange={handleChangeTagName} className="addTag__openInput" />
+          </label><br />
+          <button className="addTag__addButton" onClick={() => {
+            insertTag(tagName);
+            resetAddTagForm();
+            }}>
+            <IconContext.Provider value={{ color: '#71d355', size: '30px' }}>
+              <MdAddCircle />
+            </IconContext.Provider>
+            <span className="addTag__addButtonText"> 追加する</span>
+          </button>
+        </div>
+      </div>
+
       <div className="restaurantList">
         <ul>
           {restaurants.map((restaurant: any) =>
@@ -122,42 +188,6 @@ const App: React.FC = () => {
           )}
         </ul>
       </div>
-
-      <div className="addRestaurant">
-        <div>レストランを追加する</div>
-        <label>レストラン名：<input value={restaurantName} onChange={handleChangeRestaurantName} /></label><br />
-        <label>レストランのURL：<input value={restaurantUrl} onChange={handleChangeRestaurantUrl} /></label><br />
-        <label>備考：<input value={restaurantDescription} onChange={handleChangeRestaurantDescription} /></label><br />
-        <label>Openする時間：<input value={restaurantOpen} onChange={handleChangeRestaurantOpen} /></label><br />
-        <div className="addRestaurant__tag">
-          <span className="addRestaurant__tagLabel">タグ：</span>
-          <span>
-            <Select
-              isMulti
-              options={options}
-              onChange={(value: any) => {
-                return value ? setSelectedValue([...value]) : null;
-              }}
-            />
-          </span>
-        </div>
-        <button className="addRestaurant__addButton" onClick={ async () => {
-          await insertRestaurant(restaurantName, restaurantUrl, restaurantDescription, restaurantOpen, selectedValue);
-          resetAddRestrantForm();
-          displayRestaurants();
-        }}>
-          <IconContext.Provider value={{ color: '#71d355', size: '30px' }}>
-            <MdAddCircle />
-          </IconContext.Provider>
-          <span className="addRestaurant__addButtonText"> 追加する</span>
-        </button>
-      </div>
-
-      {/* <div>タグを追加する</div>
-      <div>
-        <input value={tagName} onChange={handleChangeTagName} /><br />
-        <button onClick={() => insertTag(tagName)}>作成</button>
-      </div> */}
     </>
   )
 }
