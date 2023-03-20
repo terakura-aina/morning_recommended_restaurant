@@ -6,7 +6,13 @@ class Api::V1::RestaurantController < ApplicationController
   end
 
   def create
-    Restaurant.create(name: params[:name], url: params[:url], description: params[:description], open: params[:open])
+    restaurant = Restaurant.create(name: params[:name], url: params[:url], description: params[:description], open: params[:open])
+    unless params[:tag].blank?
+      params[:tag].each do |tag|
+        tag = Tag.find_by(name: tag['value'])
+        RestaurantTag.create(restaurant_id: restaurant.id, tag_id: tag.id)
+      end
+    end
   end
 
   def destroy

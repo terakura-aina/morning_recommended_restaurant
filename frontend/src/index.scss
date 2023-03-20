@@ -28,6 +28,15 @@ body {
 }
 
 .addRestaurant {
+  &__tag {
+    padding-top: 5px;
+    display: flex;
+  }
+
+  &__tagLabel {
+    line-height: 38px;
+  }
+
   &__addButtonText {
     position: relative;
     bottom: 10px;
