@@ -1,8 +1,10 @@
-import React, { useLayoutEffect, useState } from "react"
+import React, { useEffect, useLayoutEffect, useState } from "react"
 import { Tooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
+import Select from "react-select";
 
 import { handleExecRestaurant } from "lib/api/restaurants"
+import { handleExecTag } from "lib/api/tags";
 import { insertRestaurant } from "lib/api/insertRestaurant"
 import { destroyRestaurant } from "lib/api/destroyRestaurant"
 import { insertTag } from "lib/api/insertTag"
@@ -11,12 +13,26 @@ import { TiDelete } from 'react-icons/ti';
 import { MdAddCircle } from 'react-icons/md';
 
 const App: React.FC = () => {
+
+  const options: Array<object> = []
+  const setOptions = async () => {
+    await tags.map((tag: any) => {
+      options.push({
+        value: tag.name,
+        label: tag.name
+      })
+    })
+    return options
+  }
+
   const [restaurants, setRestaurants] = useState<any>([])
+  const [tags, setTags] = useState<any>([])
   const [restaurantName, setRestaurantName] = useState('')
   const [restaurantUrl, setRestaurantUrl] = useState('')
   const [restaurantDescription, setRestaurantDescription] = useState('')
   const [restaurantOpen, setRestaurantOpen] = useState('')
   const [tagName, setTagName] = useState('')
+  const [selectedValue, setSelectedValue] = useState(options[0]);
 
   const handleChangeRestaurantName = (e: any) => {
     setRestaurantName(e.target.value)
@@ -50,6 +66,11 @@ const App: React.FC = () => {
     setRestaurants(restaurants)
   }
 
+  const displayTags = async() => {
+    const tags = await handleExecTag()
+    setTags(tags)
+  }
+
   const hasDescriptionOrOpen = (description: string | undefined, open: string | undefined) => {
     return description || open
   }
@@ -64,7 +85,12 @@ const App: React.FC = () => {
 
   useLayoutEffect(() => {
     displayRestaurants();
+    displayTags();
   }, [])
+
+  useEffect(() => {
+    setOptions();
+  })
 
   return (
     <>
@@ -103,8 +129,20 @@ const App: React.FC = () => {
         <label>レストランのURL：<input value={restaurantUrl} onChange={handleChangeRestaurantUrl} /></label><br />
         <label>備考：<input value={restaurantDescription} onChange={handleChangeRestaurantDescription} /></label><br />
         <label>Openする時間：<input value={restaurantOpen} onChange={handleChangeRestaurantOpen} /></label><br />
+        <div className="addRestaurant__tag">
+          <span className="addRestaurant__tagLabel">タグ：</span>
+          <span>
+            <Select
+              isMulti
+              options={options}
+              onChange={(value: any) => {
+                return value ? setSelectedValue([...value]) : null;
+              }}
+            />
+          </span>
+        </div>
         <button className="addRestaurant__addButton" onClick={ async () => {
-          await insertRestaurant(restaurantName, restaurantUrl, restaurantDescription, restaurantOpen);
+          await insertRestaurant(restaurantName, restaurantUrl, restaurantDescription, restaurantOpen, selectedValue);
           resetAddRestrantForm();
           displayRestaurants();
         }}>
