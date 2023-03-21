@@ -57,8 +57,8 @@ const App: React.FC = () => {
     setRestaurantOpen("");
   }
 
-  const resetAddTagForm = async() => {
-    await displayTags()
+  const resetAddTagForm = () => {
+    displayTags()
     setTagName("")
   }
 
@@ -135,8 +135,8 @@ const App: React.FC = () => {
               <span className="addTag__name">タグの名前：</span><br />
               <input value={tagName} onChange={handleChangeTagName} className="addTag__openInput" />
             </label><br />
-            <button className="addTag__addButton" onClick={() => {
-              insertTag(tagName);
+            <button className="addTag__addButton" onClick={async () => {
+              await insertTag(tagName);
               resetAddTagForm();
               }}>
               <IconContext.Provider value={{ color: '#82b046', size: '30px' }}>
