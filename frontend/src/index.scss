@@ -34,34 +34,34 @@ body {
 }
 
 .addRestaurant {
+  width: 50%;
+
+  &__countainer {
+    margin: 0 auto;
+    width: 70%;
+  }
+
   &__title {
-    font-size: 20px;
-    width: 250px;
+    font-size: 18px;
+    width: 50%;
     text-align: center;
     border: 1px solid;
     border-radius: 5px;
-    margin: 10px 0 20px 10px
+    margin: 10px;
   }
 
   &__name, &__url, &__description, &__open {
     display: inline-block;
-    height: 40px;
-    width: 150px;
-    text-align: right;
   }
 
   &__nameInput, &__urlInput, &__descriptionInput, &__openInput {
     height: 35px;
-    width: 300px;
+    width: 80%;
     border-color: rgb(204, 204, 204);
     border-radius: 4px;
     border-style: solid;
     border-width: 1px;
     box-sizing: border-box;
-  }
-
-  &__tag {
-    display: flex;
   }
 
   &__tagName {
@@ -72,13 +72,11 @@ body {
 
   &__tagNameInput {
     display: inline-block;
-    width: 300px;
+    width: 80%;
   }
 
   &__addButton {
-    width: 450px;
     margin-top: 10px;
-    text-align: right;
   }
 
   &__addButtonText {
@@ -90,27 +88,29 @@ body {
 }
 
 .addTag {
-  margin-left: 30px;
+  width: 50%;
+
+  &__countainer {
+    margin: 0 auto;
+    width: 70%;
+  }
 
   &__title {
-    font-size: 20px;
-    width: 250px;
+    font-size: 18px;
+    width: 50%;
     text-align: center;
     border: 1px solid;
     border-radius: 5px;
-    margin: 10px 0 20px 10px
+    margin: 10px;
   }
 
   &__name {
     display: inline-block;
-    height: 40px;
-    width: 150px;
-    text-align: right;
   }
 
   &__openInput {
     height: 35px;
-    width: 300px;
+    width: 80%;
     border-color: rgb(204, 204, 204);
     border-radius: 4px;
     border-style: solid;
@@ -119,9 +119,7 @@ body {
   }
 
   &__addButton {
-    width: 450px;
     margin-top: 10px;
-    text-align: right;
   }
 
   &__addButtonText {
@@ -130,6 +128,24 @@ body {
     bottom: 10px;
     font-size: 16px;
   }
+}
+
+.imageLemon {
+  position: absolute;
+    top: 15%;
+    width: 50%;
+    right: 20%;
+    opacity: 0.6;
+    transform: rotate(345deg);
+}
+
+.imageDoughnut {
+  width: 30%;
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  opacity: 0.8;
+  transform: rotate(15deg);
 }
 
 button{

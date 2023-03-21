@@ -11,6 +11,8 @@ import { insertTag } from "lib/api/insertTag"
 import { IconContext } from 'react-icons'
 import { TiDelete } from 'react-icons/ti';
 import { MdAddCircle } from 'react-icons/md';
+import lemon from 'images/lemon.png';
+import doughnut from 'images/doughnut.png'
 
 const App: React.FC = () => {
 
@@ -101,62 +103,66 @@ const App: React.FC = () => {
     <>
       <div className="addForm">
         <div className="addRestaurant">
-          <div className="addRestaurant__title">レストランを追加する</div>
-          <label>
-            <span className="addRestaurant__name">レストラン名：</span>
-            <input value={restaurantName} onChange={handleChangeRestaurantName} className="addRestaurant__nameInput" />
-          </label><br />
-          <label>
-            <span className="addRestaurant__url">レストランのURL：</span>
-            <input value={restaurantUrl} onChange={handleChangeRestaurantUrl} className="addRestaurant__urlInput" />
-          </label><br />
-          <label>
-            <span className="addRestaurant__description">備考：</span>
-            <input value={restaurantDescription} onChange={handleChangeRestaurantDescription}  className="addRestaurant__descriptionInput"/>
+          <div className="addRestaurant__countainer">
+            <div className="addRestaurant__title">レストランを追加する</div>
+            <label>
+              <span className="addRestaurant__name">レストラン名：</span><br />
+              <input value={restaurantName} onChange={handleChangeRestaurantName} className="addRestaurant__nameInput" />
             </label><br />
-          <label>
-            <span className="addRestaurant__open">Openする時間：</span>
-            <input value={restaurantOpen} onChange={handleChangeRestaurantOpen} className="addRestaurant__openInput" />
-          </label><br />
-          <div className="addRestaurant__tag">
-            <span className="addRestaurant__tagName">タグ：</span>
-            <span className="addRestaurant__tagNameInput">
-              <Select
-                isMulti
-                options={options}
-                onChange={(value: any) => {
-                  return value ? setSelectedValue([...value]) : null;
-                }}
-              />
-            </span>
+            <label>
+              <span className="addRestaurant__url">レストランのURL：</span><br />
+              <input value={restaurantUrl} onChange={handleChangeRestaurantUrl} className="addRestaurant__urlInput" />
+            </label><br />
+            <label>
+              <span className="addRestaurant__description">備考：</span><br />
+              <input value={restaurantDescription} onChange={handleChangeRestaurantDescription}  className="addRestaurant__descriptionInput"/>
+              </label><br />
+            <label>
+              <span className="addRestaurant__open">Openする時間：</span><br />
+              <input value={restaurantOpen} onChange={handleChangeRestaurantOpen} className="addRestaurant__openInput" />
+            </label><br />
+            <div className="addRestaurant__tag">
+              <span className="addRestaurant__tagName">タグ：</span><br />
+              <span className="addRestaurant__tagNameInput">
+                <Select
+                  isMulti
+                  options={options}
+                  onChange={(value: any) => {
+                    return value ? setSelectedValue([...value]) : null;
+                  }}
+                />
+              </span>
+            </div>
+            <button className="addRestaurant__addButton" onClick={ async () => {
+              await insertRestaurant(restaurantName, restaurantUrl, restaurantDescription, restaurantOpen, selectedValue);
+              resetAddRestrantForm();
+              displayRestaurants();
+            }}>
+              <IconContext.Provider value={{ color: '#82b046', size: '30px' }}>
+                <MdAddCircle />
+              </IconContext.Provider>
+              <span className="addRestaurant__addButtonText"> 追加する</span>
+            </button>
           </div>
-          <button className="addRestaurant__addButton" onClick={ async () => {
-            await insertRestaurant(restaurantName, restaurantUrl, restaurantDescription, restaurantOpen, selectedValue);
-            resetAddRestrantForm();
-            displayRestaurants();
-          }}>
-            <IconContext.Provider value={{ color: '#71d355', size: '30px' }}>
-              <MdAddCircle />
-            </IconContext.Provider>
-            <span className="addRestaurant__addButtonText"> 追加する</span>
-          </button>
         </div>
 
         <div className="addTag">
-          <div className="addTag__title">タグを追加する</div>
-          <label>
-            <span className="addTag__name">タグの名前：</span>
-            <input value={tagName} onChange={handleChangeTagName} className="addTag__openInput" />
-          </label><br />
-          <button className="addTag__addButton" onClick={() => {
-            insertTag(tagName);
-            resetAddTagForm();
-            }}>
-            <IconContext.Provider value={{ color: '#71d355', size: '30px' }}>
-              <MdAddCircle />
-            </IconContext.Provider>
-            <span className="addTag__addButtonText"> 追加する</span>
-          </button>
+          <div className="addTag__countainer">
+            <div className="addTag__title">タグを追加する</div>
+            <label>
+              <span className="addTag__name">タグの名前：</span><br />
+              <input value={tagName} onChange={handleChangeTagName} className="addTag__openInput" />
+            </label><br />
+            <button className="addTag__addButton" onClick={() => {
+              insertTag(tagName);
+              resetAddTagForm();
+              }}>
+              <IconContext.Provider value={{ color: '#82b046', size: '30px' }}>
+                <MdAddCircle />
+              </IconContext.Provider>
+              <span className="addTag__addButtonText"> 追加する</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -187,6 +193,10 @@ const App: React.FC = () => {
             </li>
           )}
         </ul>
+      </div>
+      <div>
+        <img className="imageLemon" src={lemon} />
+        <img className="imageDoughnut" src={doughnut} />
       </div>
     </>
   )
