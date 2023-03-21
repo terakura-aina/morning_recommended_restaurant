@@ -8,6 +8,9 @@ import { handleExecTag } from "lib/api/tags";
 import { insertRestaurant } from "lib/api/insertRestaurant"
 import { destroyRestaurant } from "lib/api/destroyRestaurant"
 import { insertTag } from "lib/api/insertTag"
+import { hasDescriptionOrOpen } from "lib/api/hasDescriptionOrOpen";
+import { openInfo } from "lib/api/openInfo";
+import { setOptions } from "lib/api/setOptions";
 import { IconContext } from 'react-icons'
 import { TiDelete } from 'react-icons/ti';
 import { MdAddCircle } from 'react-icons/md';
@@ -17,15 +20,6 @@ import doughnut from 'images/doughnut.png'
 const App: React.FC = () => {
 
   const options: Array<object> = []
-  const setOptions = async () => {
-    await tags.map((tag: any) => {
-      options.push({
-        value: tag.name,
-        label: tag.name
-      })
-    })
-    return options
-  }
 
   const [restaurants, setRestaurants] = useState<any>([])
   const [tags, setTags] = useState<any>([])
@@ -78,25 +72,13 @@ const App: React.FC = () => {
     setTags(tags)
   }
 
-  const hasDescriptionOrOpen = (description: string | undefined, open: string | undefined) => {
-    return description || open
-  }
-
-  const openInfo = (open: string| undefined) => {
-    if(open) {
-      return open
-    } else {
-      return "不明"
-    }
-  }
-
   useLayoutEffect(() => {
     displayRestaurants();
     displayTags();
   }, [])
 
   useEffect(() => {
-    setOptions();
+    setOptions(tags, options);
   })
 
   return (

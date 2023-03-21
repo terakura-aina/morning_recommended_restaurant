@@ -9,6 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   .restaurantList {
+    margin-top: 50px;
+
     &__tag {
       display: inline-block;
       margin-left: 10px;
@@ -31,6 +33,7 @@ body {
 
 .addForm {
   display: flex;
+  margin-top: 20px;
 }
 
 .addRestaurant {
@@ -47,7 +50,7 @@ body {
     text-align: center;
     border: 1px solid;
     border-radius: 5px;
-    margin: 10px;
+    margin: 20px 0 20px 10px;
   }
 
   &__name, &__url, &__description, &__open {
@@ -101,7 +104,7 @@ body {
     text-align: center;
     border: 1px solid;
     border-radius: 5px;
-    margin: 10px;
+    margin: 20px 0 20px 10px;
   }
 
   &__name {
