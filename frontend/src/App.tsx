@@ -57,8 +57,8 @@ const App: React.FC = () => {
     setRestaurantOpen("");
   }
 
-  const resetAddTagForm = () => {
-    displayTags()
+  const resetAddTagForm = async() => {
+    await displayTags()
     setTagName("")
   }
 
