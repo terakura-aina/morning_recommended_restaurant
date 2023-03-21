@@ -135,11 +135,12 @@ body {
 
 .imageLemon {
   position: absolute;
-    top: 15%;
-    width: 50%;
-    right: 20%;
-    opacity: 0.6;
-    transform: rotate(345deg);
+  top: 15%;
+  width: 50%;
+  right: 20%;
+  opacity: 0.6;
+  transform: rotate(345deg);
+  z-index: -1;
 }
 
 .imageDoughnut {
@@ -149,6 +150,7 @@ body {
   right: 5%;
   opacity: 0.8;
   transform: rotate(15deg);
+  z-index: -1;
 }
 
 button{
