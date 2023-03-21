@@ -9,11 +9,16 @@ class Api::V1::TagController < ApplicationController
     Tag.create(name: params[:name])
   end
 
+  def destroy
+    Tag.find(params[:id]).destroy!
+  end
+
   private
 
   IssueInfoQuery = Graphql::Client.parse <<~'GRAPHQL'
     query {
       tags {
+        id
         name
       }
     }
