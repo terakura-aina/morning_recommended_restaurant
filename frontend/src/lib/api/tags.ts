@@ -6,6 +6,7 @@ const execTag = () => {
 
 export const handleExecTag = async () => {
   const res = await execTag()
+  console.log(res)
 
   if (res.status === 200) {
     return res.data.tags
